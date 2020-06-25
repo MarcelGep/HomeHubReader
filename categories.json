@@ -1,0 +1,151 @@
+
+  [
+    {
+      "name": "Home",
+      "icon": "home.png",
+      "subcategories": [
+        {
+          "name": "Home_Anwesenheiten",
+          "display_name": "At Home"
+        },
+        {
+          "name": "Home_Infos",
+          "display_name": "CCU Infos"
+        },
+        {
+          "name": "Home_Nachrichten2",
+          "display_name": "Nachrichten"
+        },
+        {
+          "name": "Home_Radio",
+          "display_name": "Radio"
+        },
+        {
+          "name": "Home_Misc",
+          "display_name": "Sonstiges"
+        }
+      ],
+      "append_divider": "true"
+    },
+    {
+      "name": "Untergeschoss",
+      "icon": "control_building_kg.png",
+      "subcategories": [
+        {
+          "name": "UG_Licht",
+          "display_name": "Licht"
+        },
+        {
+          "name": "UG_Heizung",
+          "display_name": "Heizung"
+        },
+        {
+          "name": "UG_Rolllaeden",
+          "display_name": "Rolll&auml;den"
+        },
+        {
+          "name": "UG_Fenster_Tueren",
+          "display_name": "Fenster/T&uuml;ren"
+        }
+      ]
+    },
+    {
+      "name": "Erdgeschoss",
+      "icon": "control_building_eg.png",
+      "subcategories": [
+        {
+          "name": "EG_Licht",
+          "display_name": "Licht"
+        }
+      ]
+    },
+    {
+      "name": "Garage",
+      "icon": "garage.png",
+      "subcategories": [
+        {
+          "name": "Garagentor",
+          "display_name": "Garagentor"
+        }
+      ]
+    },
+    {
+      "name": "Garten",
+      "icon": "scene_garden.png",
+      "subcategories": [
+        {
+          "name": "Garten_Licht",
+          "display_name": "Beleuchtung"
+        },
+        {
+          "name": "Garten_Strom",
+          "display_name": "Stromversorgung"
+        }
+      ],
+      "append_divider": "true"
+    },
+    {
+      "name": "Licht",
+      "icon": "light_light_dim_100.png",
+      "subcategories": [
+        {
+          "name": "UG_Licht",
+          "display_name": "Untergeschoss"
+        },
+        {
+          "name": "EG_Licht",
+          "display_name": "Erdgeschoss"
+        },
+        {
+          "name": "Garten_Licht",
+          "display_name": "Garten"
+        }
+      ]
+    },
+    {
+      "name": "Raumklima",
+      "icon": "sani_heating.png",
+      "subcategories": [
+        {
+          "name": "UG_Heizung",
+          "display_name": "Untergeschoss"
+        }
+      ]
+    },
+    {
+      "name": "Fenster & Türen",
+      "icon": "fts_window_2w.png",
+      "subcategories": [
+        {
+          "name": "UG_Fenster_Tueren",
+          "display_name": "Untergeschoss"
+        }
+      ]
+    },
+    {
+      "name": "Stromversorgung",
+      "icon": "current.png",
+      "subcategories": [
+        {
+          "name": "Stromversorgung",
+          "display_name": "Stromversorgung"
+        }
+      ],
+      "append_divider": "true"
+    },
+    {
+      "name": "Programme",
+      "icon": "programs.png",
+      "subcategories": []
+    },
+    {
+      "name": "Systemvariablen",
+      "icon": "variables.png",
+      "subcategories": []
+    },
+    {
+      "name": "Import",
+      "icon": "edit_settings.png",
+      "subcategories": []
+    }
+  ]
