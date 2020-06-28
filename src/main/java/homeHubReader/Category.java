@@ -7,6 +7,8 @@ public class Category {
 	String name;
 	String icon;
 	String append_divider;
+	String display_name;
+
 	List<SubCategory> subcategories;
 
 	public void setSubcategories(List<SubCategory> subcategories) {
@@ -39,5 +41,13 @@ public class Category {
 	
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+	
+	public String getDisplay_name() {
+		return display_name;
+	}
+
+	public void setDisplay_name(String display_name) {
+		this.display_name = display_name;
 	}
 }

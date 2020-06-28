@@ -1,11 +1,13 @@
 package homeHubReader;
 
+import javafx.scene.paint.Color;
+
 public class Custom {
 	
 	String name;
 	String icon;
 	String display_name;
-	String color;
+	Color color;
 	String append_divider;
 	
 	public String getName() {
@@ -26,10 +28,10 @@ public class Custom {
 	public void setDisplay_name(String display_name) {
 		this.display_name = display_name;
 	}
-	public String getColor() {
+	public Color getColor() {
 		return color;
 	}
-	public void setColor(String color) {
+	public void setColor(Color color) {
 		this.color = color;
 	}
 	public String getAppend_divider() {

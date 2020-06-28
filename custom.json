@@ -1,0 +1,268 @@
+{
+  
+    "Home_Anwesenheiten": [
+      {
+        "name": "Anwesenheit.Annina",
+        "icon": "status_available.png",
+        "display_name": "Annina Geprägs",
+        "operate": "false"
+      },
+      {
+        "name": "Anwesenheit.Marcel",
+        "icon": "status_available.png",
+        "display_name": "Marcel Geprägs",
+        "operate": "false",
+        "append_divider": "true"
+      }
+    ],
+    "Home_Infos": [
+      {
+        "name": "DutyCycle",
+        "icon": "measure_power_meter.png",
+        "display_name": "DutyCycle",
+        "color": "#CC0000",
+        "operate": "false",
+        "append_divider": "true"
+      }
+    ],
+    "Home_Nachrichten": [
+      {
+        "component": "Tagesschau",
+        "icon": "it_television.png",
+        "display_name": "Tagesschau",
+        "color": "#CC0000",
+        "append_divider": "true"
+      }
+    ],
+    "Home_Misc": [
+      {
+        "component": "Iframe",  
+        "name": "Heizölpreise",
+        "icon": "time_graph.png",
+        "url": "https://www.tecson.de/tecson-heizoel-500.html"
+      },
+      {
+        "component": "Iframe",  
+        "name": "Wetter",
+        "icon": "weather_cloudy_light.png",
+        "url": "https://api.wetteronline.de/wetterwidget?gid=x5213&modeid=FC3&seourl=allmendingen/ennahofen&locationname=Ennahofen&lang=de",
+        "append_divider": "true"
+      }
+    ],
+    "Home_Radio": [
+      {
+        "component": "Audio",
+        "name": "Das Ding",
+        "icon": "dasding.png",
+        "file": "http://swr-dasding-live.cast.addradio.de/swr/dasding/live/mp3/128/stream.mp3"
+      },
+      {
+        "component": "Audio",
+        "name": "SWR 3",
+        "icon": "swr3.png",
+        "file": "https://swr-swr3-live.cast.addradio.de/swr/swr3/live/mp3/128/stream.mp3"
+      },
+      {
+        "component": "Audio",
+        "name": "Donau3FM",
+        "icon": "donau3fm_w.png",
+        "file": "http://mp3.donau3fm.c.nmdn.net/donau3fm/live.mp3",
+        "append_divider": "true"
+      }
+    ],
+    "Garagentor": [
+      {
+        "name": "Garagentor-Schließkontakt",
+        "icon": "fts_garage_door_100.png",
+        "display_name": "Status",
+        "indicator": "1"
+      },
+      {
+        "name": "Garagentor",
+        "icon": "fts_garage_door_100.png",
+        "display_name": "Antrieb"
+      }
+    ],
+    "UG_Licht": [
+      {
+        "name": "Wohnzimmerlicht Vorne",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Wohnzimmerlicht Vorne",
+        "color": "#ffcc00"
+      },
+      {
+        "name": "Wohnzimmerlicht Hinten",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Wohnzimmerlicht Hinten",
+        "color": "#ffcc00"
+      },
+      {
+        "name": "WLAN-Steckdose-Stehlampe",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Wohnzimmer Stehlampe",
+        "color": "#ffcc00"
+      },
+      {
+        "name": "WLAN-Steckdose-Bild",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Wohnzimmer Bildbeleuchtung",
+        "color": "#ffcc00"
+      },
+      {
+        "name": "WLAN-Steckdose-Sideboard",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Wohnzimmer Sideboard",
+        "color": "#ffcc00"
+      },
+      {
+        "name": "WLAN-Steckdose-Fensterbank",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Wohnzimmer Fensterbank",
+        "color": "#ffcc00"
+      },
+      {
+        "name": "WLAN-Steckdose-Deckenfluter",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Wohnzimmer Deckenfluter",
+        "color": "#ffcc00"
+      }, 
+      {
+        "name": "WLAN-Steckdose-Weihnachtsbaum",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Wohnzimmer Weihnachtsbaum",
+        "color": "#ffcc00"
+      },
+      {
+        "name": "WLAN-Steckdose-Spiegel",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Flur Spiegel",
+        "color": "#ffcc00",
+        "append_divider": "true"
+      }
+    ],
+    "UG_Rolllaeden": [
+      {
+        "name": "Rollladen_Kinderzimmer:4",
+        "icon": "fts_shutter_50.png",
+        "display_name": "Kinderzimmer Rolladen",
+        "append_divider": "true"
+      }
+    ],
+    "UG_Heizung": [
+      {
+        "name": "UG Wohnzimmer Heizung",
+        "icon": "sani_heating.png",
+        "display_name": "Wohnzimmer Heizung",
+        "color": "#00CC33"
+      },
+      {
+        "name": "UG_WZ-Thermostat-Groß_1:4",
+        "icon": "sani_heating.png",
+        "display_name": "Wohnzimmer Heizung Groß",
+        "color": "#00CC33"
+      },
+      {
+        "name": "UG_WZ-Thermostat-Klein_1:4",
+        "icon": "sani_heating.png",
+        "display_name": "Wohnzimmer Heizung Klein",
+        "color": "#00CC33"
+      },
+      {
+        "name": "UG_Bad-Thermostat_1:4",
+        "icon": "sani_heating.png",
+        "display_name": "Bad Heizung",
+        "color": "#00CC33"
+      },
+      {
+        "name": "UG_KUE-Thermostat_1:4",
+        "icon": "sani_heating.png",
+        "display_name": "Küche Heizung",
+        "color": "#00CC33"
+      },
+      {
+        "name": "UG_SZ-Thermostat_1:4",
+        "icon": "sani_heating.png",
+        "display_name": "Schlafzimmer Heizung",
+        "color": "#00CC33",
+        "append_divider": "true"
+      }
+    ],
+    "UG_Fenster_Tueren": [
+      {
+        "name": "UG Bad Fenster",
+        "icon": "fts_window_1w_tilt.png",
+        "display_name": "Bad Fenster"
+      },
+      {
+        "name": "UG Schlafzimmer Fenster",
+        "icon": "fts_window_1w_tilt.png",
+        "display_name": "Schlafzimmer Fenster"
+      },
+      {
+        "name": "UG Wohnzimmer Fenster",
+        "icon": "fts_window_1w_tilt.png",
+        "display_name": "Wohnzimmer Fenster"
+      },
+      {
+        "name": "UG Wohnzimmer Türe",
+        "icon": "fts_door_open.png",
+        "display_name": "Wohnzimmer Türe",
+        "indicator": "3,true;2,true;1,warn;Kontaktlinsen,false;Prothyrid,off"      },
+      {
+        "name": "UG Küche Türe",
+        "icon": "fts_door_open.png",
+        "display_name": "Küche Türe",
+        "append_divider": "true"
+      }
+    ],
+    "EG_Licht": [
+      {
+        "name": "WLAN-Steckdose-Hausstein",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Hausstein Licht",
+        "append_divider": "true"
+      }
+    ],
+    "Garten_Licht": [
+      {
+        "name": "TR_Schalter_Gartenbeleuchtung",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Gartenbeleuchtung"
+      },
+      {
+        "name": "TR_Schalter_Wandlicht",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Terrasse Licht Schlafzimmer"
+      },
+      {
+        "name": "TR_Licht_Wandlicht",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Terrasse Licht Wohnzimmer"
+      },
+     {
+        "name": "Holzkeller Lampe",
+        "icon": "light_light_dim_100.png",
+        "display_name": "Terrasse Licht Kinderzimmer",
+        "append_divider": "true"
+      }
+    ],
+    "Garten_Strom": [
+      {
+        "name": "Hauptschalter Außen",
+        "icon": "control_switch_1.png",
+        "display_name": "Hauptschalter Außen",
+        "color": "#FF6600",
+        "append_divider": "true"
+      }
+    ],
+    "Stromversorgung": [
+      {
+        "name": "Hauptschalter Außen",
+        "icon": "control_switch_1.png",
+        "display_name": "Hauptschalter Außen",
+        "color": "#FF6600",
+        "append_divider": "true"
+      }
+    ]
+          
+}

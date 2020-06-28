@@ -12,30 +12,30 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class homeHubReader {
-
-	public final static String categoriesPath = "/home/marcel/Desktop/categories.json";
-	public final static String customPath = "/home/marcel/Desktop/custom.json";
+public class JsonReader {
 
 	public final static ObjectMapper objectMapper = new ObjectMapper();
 
-	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
+	public JsonReader() {
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-		System.out.println("######### Categories ##########");
-		readCategoriesFile();
-		
-		System.out.println("######### Custom ##########");
-		readCustomFile();
-
 	}
+	
+//	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
+//		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//
+//		System.out.println("######### Categories ##########");
+//		readCategoriesFile();
+//		
+////		System.out.println("######### Custom ##########");
+////		readCustomFile();
+//
+//	}
 
-	private static void readCustomFile() {
-		File customFile = new File(customPath);
+	public HashMap<String, List<Custom>> readCustomFile(File file) {
 		TypeReference<HashMap<String, List<Custom>>> typeReference = new TypeReference<HashMap<String, List<Custom>>>() {};
 
 		try {
-			HashMap<String, List<Custom>> customs = objectMapper.readValue(customFile, typeReference);
+			return objectMapper.readValue(file, typeReference);
 
 			//TODO
 //			for (List<Custom> entry : customs.values()) {
@@ -47,14 +47,15 @@ public class homeHubReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 	
-	private static void readCategoriesFile() {
-		File categoriesFile = new File(categoriesPath);
+	public List<Category> readCategoriesFile(File file) {
 		TypeReference<List<Category>> typeReference = new TypeReference<List<Category>>() {};
 
 		try {
-			List<Category> categories = objectMapper.readValue(categoriesFile, typeReference);
+			return objectMapper.readValue(file, typeReference);
 
 			//TODO
 //			for (Category c : categories) {
@@ -69,6 +70,8 @@ public class homeHubReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
 	private static SubCategory createSubCategory(String name, String displayName) {
