@@ -1,5 +1,5 @@
 {
-  "custom": {
+  
     "Home_Anwesenheiten": [
       {
         "name": "Anwesenheit.Annina",
@@ -264,5 +264,5 @@
         "append_divider": "true"
       }
     ]
-  }        
+          
 }

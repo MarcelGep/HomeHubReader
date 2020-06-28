@@ -21,18 +21,21 @@ public class HomeHubReaderApp extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/mainView.fxml")); 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainView.fxml")); 
 
+        Parent root = fxmlLoader.load();
+        
 		Scene mainScene = new Scene(root);
 
 		Stage mainWindow = new Stage();
 		mainWindow.setScene(mainScene);
 		mainWindow.setTitle("HomeHubReader");
+		mainWindow.setMaximized(true);
 		mainWindow.setOnCloseRequest(e -> {
 			e.consume();
 			mainWindow.close();
 		});
-
+				
 		mainWindow.show();
 	}
 

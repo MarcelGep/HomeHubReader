@@ -31,12 +31,11 @@ public class JsonReader {
 //
 //	}
 
-	public void readCustomFile(String path) {
-		File file = new File(path);
+	public HashMap<String, List<Custom>> readCustomFile(File file) {
 		TypeReference<HashMap<String, List<Custom>>> typeReference = new TypeReference<HashMap<String, List<Custom>>>() {};
 
 		try {
-			HashMap<String, List<Custom>> customs = objectMapper.readValue(file, typeReference);
+			return objectMapper.readValue(file, typeReference);
 
 			//TODO
 //			for (List<Custom> entry : customs.values()) {
@@ -48,10 +47,11 @@ public class JsonReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 	
-	public List<Category> readCategoriesFile(String path) {
-		File file = new File(path);
+	public List<Category> readCategoriesFile(File file) {
 		TypeReference<List<Category>> typeReference = new TypeReference<List<Category>>() {};
 
 		try {
