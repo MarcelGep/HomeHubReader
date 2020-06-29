@@ -1,28 +1,25 @@
 package homeHubReader;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -32,14 +29,10 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
-import javafx.scene.control.TreeTableView.ResizeFeatures;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.util.Callback;
 
 public class HomeHubReaderController implements Initializable {
 
@@ -76,6 +69,32 @@ public class HomeHubReaderController implements Initializable {
 		colDisplayName1.setCellValueFactory(new TreeItemPropertyValueFactory<Category, String>("display_name"));
 		colIcon1.setCellValueFactory(new TreeItemPropertyValueFactory<Category, String>("icon"));
 		colAppendDivider1.setCellValueFactory(new TreeItemPropertyValueFactory<Category, String>("append_divider"));
+		colAppendDivider1.setCellFactory(p -> {
+            CheckBox checkBox = new CheckBox();
+
+            TreeTableCell<Category, String> cell = new TreeTableCell<>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                	if (empty || getTreeTableRow().getTreeItem().getChildren().size() == 0) {
+                        setGraphic(null);
+                    } else {
+                        checkBox.setSelected(Boolean.valueOf(item));
+                        setGraphic(checkBox);
+                    }
+                }
+            };
+
+            checkBox.selectedProperty().addListener((obs, wasSelected, isSelected) ->
+            {
+                Category category = cell.getTreeTableRow().getItem();
+
+                if (category != null) {
+                	category.setAppend_divider(isSelected.toString());
+                }
+            });
+
+            return cell ;
+        });
 	}
 
 	@SuppressWarnings("unchecked")
@@ -92,6 +111,33 @@ public class HomeHubReaderController implements Initializable {
 		colDisplayName.setCellValueFactory(new TreeItemPropertyValueFactory<Custom, String>("display_name"));
 		colIcon.setCellValueFactory(new TreeItemPropertyValueFactory<Custom, String>("icon"));
 		colAppendDivider.setCellValueFactory(new TreeItemPropertyValueFactory<Custom, String>("append_divider"));
+		colAppendDivider.setCellFactory(p -> {
+            CheckBox checkBox = new CheckBox();
+
+            TreeTableCell<Custom, String> cell = new TreeTableCell<>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                	if (empty || getTreeTableRow().getTreeItem().getChildren().size() > 0) {
+                        setGraphic(null);
+                    } else {
+                        checkBox.setSelected(Boolean.valueOf(item));
+                        setGraphic(checkBox);
+                    }
+                }
+            };
+
+            checkBox.selectedProperty().addListener((obs, wasSelected, isSelected) ->
+            {
+            	Custom custom = cell.getTreeTableRow().getItem();
+
+                if (custom != null) {
+                	custom.setAppend_divider(isSelected.toString());
+                }
+            });
+
+            return cell ;
+        });
+		
 		colColor.setCellValueFactory(new TreeItemPropertyValueFactory<Custom, String>("color"));
 		colColor.setCellFactory(ColorTableCell::new);
 	}
@@ -163,6 +209,13 @@ public class HomeHubReaderController implements Initializable {
 				}
 				
 				rootCategories.getChildren().add(entryCategory);
+				
+				if (Boolean.valueOf(c.getAppend_divider())) {
+					Category div = new Category();
+					div.setName("-------------");
+					TreeItem<Category> divider = new TreeItem<Category>(div);
+					rootCategories.getChildren().add(divider);
+				}
 			}
 			
 			rootCategories.setExpanded(true);
