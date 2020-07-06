@@ -2,12 +2,23 @@ package homeHubReader;
 
 import java.util.List;
 
-public class Category {
+import javafx.scene.paint.Color;
+
+public class JsonItem {
 
 	String name;
 	String icon;
 	String append_divider;
 	String display_name;
+	Color color;
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
 
 	List<SubCategory> subcategories;
 

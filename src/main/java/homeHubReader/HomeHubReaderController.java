@@ -5,23 +5,17 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Observable;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -38,128 +32,68 @@ public class HomeHubReaderController implements Initializable {
 
 	@FXML
 	private TextField tfFileChooser;
+	
 	@FXML
 	private Button btnReadFile;
 
 	@FXML
-	private TreeTableView<Custom> ttvCustoms = new TreeTableView<Custom>();
-	@FXML
-	private TreeTableView<Category> ttvCategories = new TreeTableView<Category>();
+	private TreeTableView<JsonItem> ttvCategories = new TreeTableView<JsonItem>();
 	
 	public static File customFilePath;
 	public static File categoryFilePath;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		initCustomTable();
 		initCategoryTable();
+		
+		customFilePath = new File("C:\\Users\\Marcel\\workspace\\HomeHubReader\\custom.json");
+		categoryFilePath = new File("C:\\Users\\Marcel\\workspace\\HomeHubReader\\categories.json");
+		onBtnReadFileClicked();
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void initCategoryTable() {
-		TreeTableColumn<Category, String> colName1 = new TreeTableColumn<Category, String>("Name");
-		TreeTableColumn<Category, String> colDisplayName1 = new TreeTableColumn<Category, String>("Display Name");
-		TreeTableColumn<Category, String> colIcon1 = new TreeTableColumn<Category, String>("Icon");
-		TreeTableColumn<Category, String> colAppendDivider1 = new TreeTableColumn<Category, String>("Divider");
+		TreeTableColumn<JsonItem, String> colName = new TreeTableColumn<JsonItem, String>("Name");
+		TreeTableColumn<JsonItem, String> colDisplayName = new TreeTableColumn<JsonItem, String>("Display Name");
+		TreeTableColumn<JsonItem, String> colIcon = new TreeTableColumn<JsonItem, String>("Icon");
+		TreeTableColumn<JsonItem, Color> colColor = new TreeTableColumn<JsonItem, Color>("Color");
+		TreeTableColumn<JsonItem, String> colAppendDivider = new TreeTableColumn<JsonItem, String>("Divider");
 		ttvCategories.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
-		ttvCategories.getColumns().addAll(colName1, colDisplayName1, colIcon1, colAppendDivider1);
+		ttvCategories.getColumns().addAll(colName, colDisplayName, colIcon, colColor, colAppendDivider);
 		
-		colName1.setMinWidth(100);		
-		colName1.setCellValueFactory(new TreeItemPropertyValueFactory<Category, String>("name"));
-		colDisplayName1.setCellValueFactory(new TreeItemPropertyValueFactory<Category, String>("display_name"));
-		colIcon1.setCellValueFactory(new TreeItemPropertyValueFactory<Category, String>("icon"));
-		colAppendDivider1.setCellValueFactory(new TreeItemPropertyValueFactory<Category, String>("append_divider"));
-		colAppendDivider1.setCellFactory(p -> {
-            CheckBox checkBox = new CheckBox();
-
-            TreeTableCell<Category, String> cell = new TreeTableCell<>() {
-                @Override
-                public void updateItem(String item, boolean empty) {
-                	if (empty || getTreeTableRow().getTreeItem().getChildren().size() == 0) {
-                        setGraphic(null);
-                    } else {
-                        checkBox.setSelected(Boolean.valueOf(item));
-                        setGraphic(checkBox);
-                    }
-                }
-            };
-
-            checkBox.selectedProperty().addListener((obs, wasSelected, isSelected) ->
-            {
-                Category category = cell.getTreeTableRow().getItem();
-
-                if (category != null) {
-                	category.setAppend_divider(isSelected.toString());
-                }
-            });
-
-            return cell ;
-        });
-	}
-
-	@SuppressWarnings("unchecked")
-	private void initCustomTable() {
-		TreeTableColumn<Custom, String> colName = new TreeTableColumn<Custom, String>("Name");
-		TreeTableColumn<Custom, String> colDisplayName = new TreeTableColumn<Custom, String>("Display Name");
-		TreeTableColumn<Custom, String> colIcon = new TreeTableColumn<Custom, String>("Icon");
-		TreeTableColumn<Custom, String> colColor = new TreeTableColumn<Custom, String>("Farbe");
-		TreeTableColumn<Custom, String> colAppendDivider = new TreeTableColumn<Custom, String>("Divider");
-		ttvCustoms.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
-		ttvCustoms.getColumns().addAll(colName, colDisplayName, colIcon, colColor, colAppendDivider);
-        
-		colName.setCellValueFactory(new TreeItemPropertyValueFactory<Custom, String>("name"));
-		colDisplayName.setCellValueFactory(new TreeItemPropertyValueFactory<Custom, String>("display_name"));
-		colIcon.setCellValueFactory(new TreeItemPropertyValueFactory<Custom, String>("icon"));
-		colAppendDivider.setCellValueFactory(new TreeItemPropertyValueFactory<Custom, String>("append_divider"));
-		colAppendDivider.setCellFactory(p -> {
-            CheckBox checkBox = new CheckBox();
-
-            TreeTableCell<Custom, String> cell = new TreeTableCell<>() {
-                @Override
-                public void updateItem(String item, boolean empty) {
-                	if (empty || getTreeTableRow().getTreeItem().getChildren().size() > 0) {
-                        setGraphic(null);
-                    } else {
-                        checkBox.setSelected(Boolean.valueOf(item));
-                        setGraphic(checkBox);
-                    }
-                }
-            };
-
-            checkBox.selectedProperty().addListener((obs, wasSelected, isSelected) ->
-            {
-            	Custom custom = cell.getTreeTableRow().getItem();
-
-                if (custom != null) {
-                	custom.setAppend_divider(isSelected.toString());
-                }
-            });
-
-            return cell ;
-        });
-		
-		colColor.setCellValueFactory(new TreeItemPropertyValueFactory<Custom, String>("color"));
-		colColor.setCellFactory(ColorTableCell::new);
+		colName.setMinWidth(100);		
+		colName.setCellValueFactory(new TreeItemPropertyValueFactory<JsonItem, String>("name"));
+		colDisplayName.setCellValueFactory(new TreeItemPropertyValueFactory<JsonItem, String>("display_name"));
+		colIcon.setCellValueFactory(new TreeItemPropertyValueFactory<JsonItem, String>("icon"));
+		colColor.setCellValueFactory(new TreeItemPropertyValueFactory<JsonItem, Color>("color"));
+		colColor.setCellFactory(ColorTableCell::new);	
+		colAppendDivider.setCellValueFactory(new TreeItemPropertyValueFactory<JsonItem, String>("append_divider"));
+		colAppendDivider.setCellFactory(CheckTableCell::new);
 	}
 
 	public class ColorTableCell<T> extends TreeTableCell<T, Color> {    
 	    private final ColorPicker colorPicker;
+	    private final VBox vBox;
 
 	    public ColorTableCell(TreeTableColumn<T, Color> column) {
-	        this.colorPicker = new ColorPicker();
-	        this.colorPicker.editableProperty().bind(column.editableProperty());
-	        this.colorPicker.disableProperty().bind(column.editableProperty().not());
-	        this.colorPicker.setOnShowing(event -> {
+	        colorPicker = new ColorPicker();
+	        vBox = new VBox();
+	        vBox.setAlignment(Pos.CENTER);
+	        vBox.getChildren().add(colorPicker);
+	        
+	        colorPicker.editableProperty().bind(column.editableProperty());
+	        colorPicker.disableProperty().bind(column.editableProperty().not());
+	        colorPicker.setOnShowing(event -> {
 	            final TreeTableView<T> treeTableView = getTreeTableView();
 	            treeTableView.getSelectionModel().select(getTreeTableRow().getIndex());
 	            treeTableView.edit(treeTableView.getSelectionModel().getSelectedIndex(), column);       
 	        });
-	        this.colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+	        colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 	            if(isEditing()) {
 	                commitEdit(newValue);
 	            }
 	        });     
-	        setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+	        //setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 	    }
 
 	    @Override
@@ -171,9 +105,39 @@ public class HomeHubReaderController implements Initializable {
 	        if(empty || item == null) {     
 	            setGraphic(null);
 	        } else {        
-	            this.colorPicker.setValue(item);
-	            this.setGraphic(this.colorPicker);
+	            colorPicker.setValue(item);
+	            setGraphic(vBox);
 	        } 
+	    }
+	}
+	
+	public class CheckTableCell<T> extends TreeTableCell<T, String> {   
+		private final CheckBox checkBox;
+		private final VBox vBox;
+		
+	    public CheckTableCell(TreeTableColumn<T, String> column) {
+	    	checkBox = new CheckBox();
+	        vBox = new VBox();
+	        vBox.setAlignment(Pos.CENTER);
+	        vBox.getChildren().add(checkBox);
+	        
+	        checkBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+	            JsonItem category = (JsonItem) getTreeTableRow().getItem();
+	
+	            if (category != null) {
+	            	category.setAppend_divider(isSelected.toString());
+	            }
+	        });
+	    }
+
+	    @Override
+	    public void updateItem(String item, boolean empty) {
+	    	if (empty) {
+	    		setGraphic(null);
+	    	} else {
+	    		checkBox.setSelected(Boolean.valueOf(item));
+	    		setGraphic(vBox);
+	    	}
 	    }
 	}
 
@@ -182,7 +146,7 @@ public class HomeHubReaderController implements Initializable {
 		try {
 			JsonReader jsonReader = new JsonReader();
 			readCategories(jsonReader);
-			readCustoms(jsonReader);
+//			readCustoms(jsonReader);
 		} catch (Exception e) {
 			showError(e);
 			e.printStackTrace();
@@ -190,68 +154,88 @@ public class HomeHubReaderController implements Initializable {
 	}
 
 	private void readCategories(JsonReader jsonReader) {
-		if (categoryFilePath != null) {			
-			List<Category> categories = jsonReader.readCategoriesFile(categoryFilePath);
-			
-			TreeItem<Category> rootCategories = new TreeItem<Category>();
-		
-			for (Category c : categories) {
-				
-				TreeItem<Category> entryCategory = new TreeItem<Category>(c);
+		if (categoryFilePath != null && customFilePath != null) {	
+			TreeItem<JsonItem> root = new TreeItem<JsonItem>();
 
-				for (SubCategory su : c.getSubcategories()) {
-					Category subCategory = new Category();
-					subCategory.setName(su.getName());
-					subCategory.setDisplay_name(su.getDisplay_name());
+			List<JsonItem> categories = jsonReader.readCategoriesFile(categoryFilePath);
+			HashMap<String, List<JsonItem>> customs = jsonReader.readCustomFile(customFilePath);
+		
+			for (JsonItem category : categories) {
+				TreeItem<JsonItem> categoryItem = new TreeItem<JsonItem>(category);
+
+				for (SubCategory sc : category.getSubcategories()) {
+					JsonItem subCategory = new JsonItem();
+					subCategory.setName(sc.getName());
+					subCategory.setDisplay_name(sc.getDisplay_name());
 					
-					TreeItem<Category> subCategroy = new TreeItem<Category>(subCategory);
-					entryCategory.getChildren().add(subCategroy);
+					TreeItem<JsonItem> subCategoryItem = new TreeItem<JsonItem>(subCategory);
+
+					if (customs.containsKey(sc.getName())) {
+						List<JsonItem> items = customs.get(sc.getName());
+						for (JsonItem item : items) {
+							TreeItem<JsonItem> customItem = new TreeItem<JsonItem>(item);
+							subCategoryItem.getChildren().add(customItem);
+							
+							if (Boolean.valueOf(item.getAppend_divider())) {
+								subCategoryItem.getChildren().add(createDivider());
+							}
+						}
+					}
+					
+					categoryItem.getChildren().add(subCategoryItem);
 				}
 				
-				rootCategories.getChildren().add(entryCategory);
+				root.getChildren().add(categoryItem);
 				
-				if (Boolean.valueOf(c.getAppend_divider())) {
-					Category div = new Category();
-					div.setName("-------------");
-					TreeItem<Category> divider = new TreeItem<Category>(div);
-					rootCategories.getChildren().add(divider);
+				if (Boolean.valueOf(category.getAppend_divider())) {
+					root.getChildren().add(createDivider());
 				}
 			}
 			
-			rootCategories.setExpanded(true);
+			root.setExpanded(true);
 			ttvCategories.setShowRoot(false);
-			ttvCategories.setRoot(rootCategories);
+			ttvCategories.setRoot(root);
 		}
+	}
+	
+	private TreeItem<JsonItem> createDivider() {
+		JsonItem div = new JsonItem();
+		String divStr = "-------------";
+		div.setName(divStr);
+		div.setDisplay_name(divStr);
+		div.setIcon(divStr);
+		
+		return new TreeItem<JsonItem>(div);
 	}
 
-	private void readCustoms(JsonReader jsonReader) {
-		TreeItem<Custom> rootCustoms = new TreeItem<Custom>();
-		
-		if (customFilePath != null) {
-			HashMap<String, List<Custom>> customs = jsonReader.readCustomFile(customFilePath);
-			HashMap<String, List<Custom>> sortedMap = 
-				      customs.entrySet().stream()
-									    .sorted(Entry.comparingByKey())
-									    .collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-			
-			for (String key : sortedMap.keySet()) {
-				Custom entryCustom = new Custom();
-				entryCustom.setName(key);
-				TreeItem<Custom> custom = new TreeItem<Custom>(entryCustom);
-				
-				for (Custom sc : sortedMap.get(key)) {
-					TreeItem<Custom> entry = new TreeItem<Custom>(sc);
-					custom.getChildren().add(entry);						
-				}
-				
-				rootCustoms.getChildren().add(custom);
-			}
-			
-			rootCustoms.setExpanded(true);
-			ttvCustoms.setShowRoot(false);
-			ttvCustoms.setRoot(rootCustoms);
-		}
-	}
+//	private void readCustoms(JsonReader jsonReader) {
+//		TreeItem<Custom> rootCustoms = new TreeItem<Custom>();
+//		
+//		if (customFilePath != null) {
+//			HashMap<String, List<Custom>> customs = jsonReader.readCustomFile(customFilePath);
+//			HashMap<String, List<Custom>> sortedMap = 
+//				      customs.entrySet().stream()
+//									    .sorted(Entry.comparingByKey())
+//									    .collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+//			
+//			for (String key : sortedMap.keySet()) {
+//				Custom entryCustom = new Custom();
+//				entryCustom.setName(key);
+//				TreeItem<Custom> custom = new TreeItem<Custom>(entryCustom);
+//				
+//				for (Custom sc : sortedMap.get(key)) {
+//					TreeItem<Custom> entry = new TreeItem<Custom>(sc);
+//					custom.getChildren().add(entry);						
+//				}
+//				
+//				rootCustoms.getChildren().add(custom);
+//			}
+//			
+//			rootCustoms.setExpanded(true);
+//			ttvCustoms.setShowRoot(false);
+//			ttvCustoms.setRoot(rootCustoms);
+//		}
+//	}
 
 	@FXML
 	private void onBtnBrowseClicked() {
