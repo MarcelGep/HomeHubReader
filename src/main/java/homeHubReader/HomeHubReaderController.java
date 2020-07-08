@@ -24,6 +24,10 @@ import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
@@ -48,6 +52,7 @@ public class HomeHubReaderController implements Initializable {
 		
 		customFilePath = new File("C:\\Users\\Marcel\\workspace\\HomeHubReader\\custom.json");
 		categoryFilePath = new File("C:\\Users\\Marcel\\workspace\\HomeHubReader\\categories.json");
+		
 		onBtnReadFileClicked();
 	}
 	
@@ -55,22 +60,71 @@ public class HomeHubReaderController implements Initializable {
 	private void initCategoryTable() {
 		TreeTableColumn<JsonItem, String> colName = new TreeTableColumn<JsonItem, String>("Name");
 		TreeTableColumn<JsonItem, String> colDisplayName = new TreeTableColumn<JsonItem, String>("Display Name");
-		TreeTableColumn<JsonItem, String> colIcon = new TreeTableColumn<JsonItem, String>("Icon");
 		TreeTableColumn<JsonItem, Color> colColor = new TreeTableColumn<JsonItem, Color>("Color");
+		TreeTableColumn<JsonItem, String> colIcon = new TreeTableColumn<JsonItem, String>("Icon");
 		TreeTableColumn<JsonItem, String> colAppendDivider = new TreeTableColumn<JsonItem, String>("Divider");
-		ttvCategories.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
-		ttvCategories.getColumns().addAll(colName, colDisplayName, colIcon, colColor, colAppendDivider);
 		
-		colName.setMinWidth(100);		
+		ttvCategories.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
+		ttvCategories.getColumns().addAll(colName, colDisplayName, colColor, colIcon, colAppendDivider);
+		
 		colName.setCellValueFactory(new TreeItemPropertyValueFactory<JsonItem, String>("name"));
+		
 		colDisplayName.setCellValueFactory(new TreeItemPropertyValueFactory<JsonItem, String>("display_name"));
+
 		colIcon.setCellValueFactory(new TreeItemPropertyValueFactory<JsonItem, String>("icon"));
+		colIcon.setCellFactory(IconTableCell::new);	
+		colIcon.setMaxWidth(650);
+		
 		colColor.setCellValueFactory(new TreeItemPropertyValueFactory<JsonItem, Color>("color"));
 		colColor.setCellFactory(ColorTableCell::new);	
+		colColor.setMaxWidth(3000);
+		
 		colAppendDivider.setCellValueFactory(new TreeItemPropertyValueFactory<JsonItem, String>("append_divider"));
 		colAppendDivider.setCellFactory(CheckTableCell::new);
+		colAppendDivider.setMaxWidth(900);
 	}
+	
+//	public class FormattedTableCell<T> extends TreeTableCell<T, String> {   
+//	    public FormattedTableCell(TreeTableColumn<T, String> column) {}
+//
+//	    @Override
+//	    public void updateItem(String item, boolean empty) {
+//	    	super.updateItem(item, empty);
+//            if (!isEmpty() && item != null) {
+//            	if (item.contains("---")) {
+//            		setStyle("-fx-background-color: lightgray;");
+//            	} else {
+//                    setText(item);
+//				}
+//            }
+//	    }
+//	}
+	
+	public class IconTableCell<T> extends TreeTableCell<T, String> {   
+		private final ImageView imageView;
+		private final HBox hBox;
+		
+	    public IconTableCell(TreeTableColumn<T, String> column) {
+	    	imageView = new ImageView();
 
+	    	hBox = new HBox();
+	    	hBox.setAlignment(Pos.CENTER);
+	    	hBox.setStyle("-fx-background-color: black;");
+	    	hBox.getChildren().add(imageView);
+	    }
+
+	    @Override
+	    public void updateItem(String item, boolean empty) {
+	    	if (empty || item == null || item.isEmpty()) {
+	    		setGraphic(null);
+	    	} else {
+	    		Image image = new Image(getClass().getResource("/icons/" + item).toString());
+	    		imageView.setImage(image);
+	    		setGraphic(hBox);
+	    	}
+	    }
+	}
+	
 	public class ColorTableCell<T> extends TreeTableCell<T, Color> {    
 	    private final ColorPicker colorPicker;
 	    private final VBox vBox;
@@ -132,7 +186,7 @@ public class HomeHubReaderController implements Initializable {
 
 	    @Override
 	    public void updateItem(String item, boolean empty) {
-	    	if (empty) {
+	    	if (empty || (item != null && item.contains("---"))) {
 	    		setGraphic(null);
 	    	} else {
 	    		checkBox.setSelected(Boolean.valueOf(item));
@@ -202,8 +256,9 @@ public class HomeHubReaderController implements Initializable {
 		JsonItem div = new JsonItem();
 		String divStr = "-------------";
 		div.setName(divStr);
-		div.setDisplay_name(divStr);
-		div.setIcon(divStr);
+//		div.setDisplay_name(divStr);
+//		div.setIcon(divStr);
+		div.setAppend_divider(divStr);
 		
 		return new TreeItem<JsonItem>(div);
 	}

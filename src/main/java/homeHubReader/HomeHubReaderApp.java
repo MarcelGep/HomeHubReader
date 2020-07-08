@@ -30,7 +30,7 @@ public class HomeHubReaderApp extends Application {
 		Stage mainWindow = new Stage();
 		mainWindow.setScene(mainScene);
 		mainWindow.setTitle("HomeHubReader");
-		mainWindow.setWidth(1000);
+		mainWindow.setWidth(900);
 		mainWindow.setHeight(1000);
 		mainWindow.setOnCloseRequest(e -> {
 			e.consume();
